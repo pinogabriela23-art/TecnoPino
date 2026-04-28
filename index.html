@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecnoPino - Tienda de Tecnología</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="imagenes/favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary: #00d9ff;
+            --secondary: #39ff14;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --card-bg: #ffffff;
+            --text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.3));
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+            color: var(--primary);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 50%, #00d9ff 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #e0f7fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            color: #e0f7fa;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #25D366;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .categories-nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+            overflow-x: auto;
+        }
+
+        .categories-list {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            flex-wrap: nowrap;
+        }
+
+        .categories-list button {
+            background: none;
+            border: 2px solid transparent;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #666;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .categories-list button:hover,
+        .categories-list button.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(0, 217, 255, 0.05);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title span {
+            font-size: 1.5rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            align-items: start;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        /* ===== GALERÍA DE FOTOS ===== */
+        .product-image {
+            width: 100%;
+            height: 280px;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .gallery {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .gallery-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: scale(1.05);
+        }
+
+        .gallery-img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gallery-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #adb5bd;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-placeholder.active {
+            opacity: 1;
+        }
+
+        .gallery-placeholder svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.4;
+        }
+
+        .gallery-placeholder span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+        }
+
+        /* Flechas de navegación */
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s;
+            z-index: 3;
+            opacity: 0;
+        }
+
+        .product-image:hover .gallery-nav {
+            opacity: 1;
+        }
+
+        .gallery-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-nav.prev { left: 8px; }
+        .gallery-nav.next { right: 8px; }
+
+        /* Indicadores de puntos */
+        .gallery-dots {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 3;
+        }
+
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .gallery-dot.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            line-height: 1.4;
+            color: var(--dark);
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-description ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .product-description ul li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-description ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #39ff14;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 50%, #00d9ff 100%);
+            color: var(--secondary);
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #e0f7fa;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: white;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: #0f4c75;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            display: none;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .header-container { flex-direction: column; }
+            .search-box { max-width: 100%; width: 100%; }
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+            .gallery-nav { opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.5rem; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    
+        /* ===== CARRITO SIDEBAR ===== */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background: white;
+            z-index: 2001;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.2);
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .cart-sidebar.active {
+            right: 0;
+        }
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-header h2 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .cart-close:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .cart-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #999;
+        }
+        .cart-empty i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            align-items: center;
+        }
+        .cart-item-info {
+            flex: 1;
+        }
+        .cart-item-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+        .qty-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .qty-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            background: #fafafa;
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .cart-total-price {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.4rem;
+        }
+        .cart-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .btn-whatsapp-cart {
+            background: #25D366;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .btn-whatsapp-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        .btn-clear {
+            background: none;
+            border: 2px solid #ddd;
+            color: #666;
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-clear:hover {
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+        .btn-danger {
+            background: #ff4444;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .btn-danger:hover {
+            background: #cc0000;
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--dark);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .cart-sidebar { max-width: 100%; }
+        }
+</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00d9ff"/>
+                                <stop offset="100%" style="stop-color:#39ff14"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M20 80 L50 50 L80 80" stroke="url(#logoGrad)" stroke-width="12" stroke-linecap="square" fill="none"/>
+                        <path d="M30 60 L50 40 L70 60" stroke="url(#logoGrad)" stroke-width="12" stroke-linecap="square" fill="none" opacity="0.7"/>
+                        <path d="M40 40 L50 30 L60 40" stroke="url(#logoGrad)" stroke-width="12" stroke-linecap="square" fill="none" opacity="0.4"/>
+                    </svg>
+                </div>
+                <span class="logo-text">TecnoPino</span>
+            </a>
+
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Buscar productos...">
+            </div>
+
+            <button class="cart-icon" onclick="toggleCart()" aria-label="Abrir carrito" style="background:none;border:none;cursor:pointer;">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Tecnología & Electrodomésticos</h1>
+            <p>Los mejores productos en electrodomésticos y tecnología al mejor precio.</p>
+            <a href="https://wa.me/5352621230?text=Hola%20TecnoPino,%20me%20interesa%20un%20producto" class="btn-whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i> Escríbenos por WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <nav class="categories-nav">
+        <ul class="categories-list">
+            <li><button class="active" onclick="filterCategory('all')">Todos</button></li>
+            <li><button onclick="filterCategory('energia')">⚡ Energía</button></li>
+            <li><button onclick="filterCategory('movilidad')">🛵 Movilidad</button></li>
+            <li><button onclick="filterCategory('freezers')">❄️ Freezers</button></li>
+            <li><button onclick="filterCategory('ventiladores')">♎ Ventiladores</button></li>
+            <li><button onclick="filterCategory('cocina')">🍳 Cocina</button></li>
+            <li><button onclick="filterCategory('hogar')">🏠 Hogar</button></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+
+        <!-- ENERGÍA -->
+        <section class="category-section" data-category="energia">
+            <h2 class="section-title"><span>⚡</span> Energía</h2>
+            <div class="products-grid">
+                <div class="product-card" data-name="ecoflow delta 2">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="ecoflow">
+                            <img src="imagenes/delta21.jpg" class="gallery-img active" alt="Ecoflow Delta 2">
+                            <img src="imagenes/ecoflow1.jpg" class="gallery-img" alt="Ecoflow Delta 2">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('ecoflow', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('ecoflow', 1)">›</button>
+                        <div class="gallery-dots" data-dots="ecoflow"><span class="gallery-dot active"></span></div>
+                        <span class="product-badge">NUEVO</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Ecoflow Delta 2</h3>
+                        <div class="product-description">
+                            <ul>
+                                <li>Capacidad de Generación 1800 W / X bost 2700 </li>
+                                <li>Batería 1024 W/H</li>
+                                <li>Carga rápida en 56 min</li>
+                                <li>Batería LiPO4</li>
+                                <li>Entrega gratis</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">780 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Ecoflow Delta 2', 780)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="olla arrocera 1.5l">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="arrocera15">
+                            <img src="imagenes/delta.jpg" class="gallery-img active" alt="arrocera15">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('arrocera15', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('arrocera15', 1)">›</button>
+                        <div class="gallery-dots" data-dots="arrocera15"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Ecoflow Delta 3</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Capacidad de Generación 1800 W / X bost 2700 </li>
+                            <li>Batería 1024 W/H</li>
+                            <li>Carga rápida en 56 min</li>
+                            <li>Batería LiPO4</li>
+                            <li>Expansión flexible de hasta 5 kWh</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">800 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Ecoflow Delta 3', 800)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        <!-- MOVILIDAD -->
+        <section class="category-section" data-category="movilidad">
+            <h2 class="section-title"><span>🛵</span> Movilidad</h2>
+            <div class="products-grid">
+                <div class="product-card" data-name="bicicleta electrica vedca">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="bicicleta">
+                            <img src="imagenes/bicicleta.jpg" class="gallery-img active" alt="bicicleta electrica vedca">
+                            <img src="imagenes/bicicleta1.jpg" class="gallery-img" alt="bicicleta electrica vedca">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('bicicleta', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('bicicleta', 1)">›</button>
+                        <div class="gallery-dots" data-dots="bicicleta"><span class="gallery-dot active"></span></div>
+                        <span class="product-badge">AGOTADO</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Bicicleta Eléctrica Vedca</h3>
+                        <div class="product-description">
+                            <ul>
+                                <li>Batería de LiFePO4 más segura y más duradera de 48VX12A</li>
+                                <li>Autonomía 50 KM por carga </li>
+                                <li>2 juegos de llaves</li>
+                                <li>Alarma por control remoto ( 2 juegos)</li>
+                                <li>Intermitentes: Delanteros y Traseros</li>
+                                <li>Amortiguadores: Hidráulicos</li>
+                                <li>Frenos: Banda</li>
+                                <li>Incluye toda la documentación legal del vehículo</li>
+                                <li>Certificado de Garantía por 6 meses</li>
+                                <li>Entrega gratis</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">790 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Bicicleta Eléctrica VEDCA', 790)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="gomas 12 motorinas">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="gomas">
+                            <img src="imagenes/gomas.jpg" class="gallery-img active" alt="gomas 12 motorinas">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('gomas', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('gomas', 1)">›</button>
+                        <div class="gallery-dots" data-dots="gomas"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Gomas 12 de Motorinas</h3>
+                        <div class="product-description">
+                            <ul>
+                                <li>Gomas de alta resistencia para motorinas</li>
+                                <li>Medida : 12 </li>
+                                <li>Entrega gratis</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">37 USD </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Gomas 12 de Motorinas', 37)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAVADORAS -->
+        <section class="category-section" data-category="hogar">
+            <h2 class="section-title"><span>🧼</span> Lavadoras</h2>
+            <div class="products-grid">
+                <div class="product-card" data-name="lavadora semiautomatica sankey 7kg">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="lavadora7">
+                            <img src="imagenes/lavadora.jpg" class="gallery-img active" alt="lavadora semiautomatica sankey 7kg">
+                            <img src="imagenes/lavadora1.jpg" class="gallery-img active" alt="lavadora semiautomatica sankey 7kg">
+                            <img src="imagenes/lavadora2.jpg" class="gallery-img active" alt="lavadora semiautomatica sankey 7kg">
+                            <img src="imagenes/lavadora3.jpg" class="gallery-img active" alt="lavadora semiautomatica sankey 7kg">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('lavadora7', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('lavadora7', 1)">›</button>
+                        <div class="gallery-dots" data-dots="lavadora7"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Semiautomática Sankey 7 KG</h3>
+                        <div class="product-description">
+                            <ul>
+                                <li>Marca : SANKEY</li>
+                                <li>Capacidad : 7kg </li>
+                                <li>Dimensiones : 84h x 60l x 39w (cm)</li>
+                                <li>Entrega gratis</li>
+                                <li>Garantía 2 meses</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">190 USD </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Lavadora Semiautomática Sankey 7KG', 190)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="lavadora automatica sankey 10.1kg">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="lavadora10">
+                            <img src="imagenes/lavadora10.jpg" class="gallery-img active" alt="lavadora automatica sankey 10.1kg">
+                            <img src="imagenes/lavadora101.jpg" class="gallery-img active" alt="lavadora automatica sankey 10.1kg">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('lavadora10', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('lavadora10', 1)">›</button>
+                        <div class="gallery-dots" data-dots="lavadora10"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Automática Sankey 10.1 KG</h3>
+                        <div class="product-description">
+                            <ul>
+                                <li>Marca : SANKEY</li>
+                                <li>Capacidad : 10.1kg </li>
+                                <li>Instalación para agua fría y caliente</li>
+                                <li>Tambor de acero</li>
+                                <li>Entrega gratis</li>
+                                <li>Garantía 2 meses</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">325 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Lavadora Automática Sankey 10.1KG', 325)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPLIT -->
+        <section class="category-section" data-category="hogar">
+            <h2 class="section-title"><span>❄️</span> Aire Acondicionado</h2>
+            <div class="products-grid">
+                <div class="product-card" data-name="split 1 tonelada milexus">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="split">
+                            <img src="imagenes/split.jpg" class="gallery-img active" alt="split 1 tonelada milexus">
+                            <img src="imagenes/split1.jpg" class="gallery-img active" alt="split 1 tonelada milexus">
+                            </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('split', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('split', 1)">›</button>
+                        <div class="gallery-dots" data-dots="split"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Split 1 Tonelada Milexus</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Milexus</li>
+                            <li>1 T</li>
+                            <li>Garantía 2 meses</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">300 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Split 1 Tonelada Milexus', 300)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VENTILADORES -->
+        <section class="category-section" data-category="ventiladores">
+            <h2 class="section-title"><span>♎</span> Ventiladores</h2>
+            <div class="products-grid">
+                <div class="product-card" data-name="ventilador multifuncion enerlife 18">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="ventilador18">
+                            <img src="imagenes/ventiladorc1.jpg" class="gallery-img active" alt="ventilador multifuncion enerlife 18">   
+                            <img src="imagenes/ventiladorc2.jpg" class="gallery-img active" alt="ventilador multifuncion enerlife 18">  
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('ventilador18', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('ventilador18', 1)">›</button>
+                        <div class="gallery-dots" data-dots="ventilador18"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Ventilador Multifunción Enerlife 18"</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : ENERLIFE</li>
+                            <li>18¨</li>
+                            <li>Motor de ciclón</li>
+                            <li>3 posiciones</li>
+                            <li>3 Aspas</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                    <div class="product-price">45 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Ventilador Multifunción Enerlife 18', 45)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="ventilador recargable 20000mah">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="ventiladorrec">
+                            <img src="imagenes/ventilador.jpg" class="gallery-img active" alt="ventilador recargable 20000mah">
+                            <img src="imagenes/ventilador1.jpg" class="gallery-img active" alt="ventilador recargable 20000mah">  </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('ventiladorrec', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('ventiladorrec', 1)">›</button>
+                        <div class="gallery-dots" data-dots="ventiladorrec"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Ventilador Recargable 20000mAh</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Batería 20000 mAh</li>
+                            <li>Doble Aspa</li>
+                            <li>Control Remoto</li>
+                            <li>Linterna</li>
+                            <li>Hasta 40h de trabajo por carga</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">46 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Ventilador Recargable 20000mAh', 46)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FREEZERS -->
+        <section class="category-section" data-category="freezers">
+            <h2 class="section-title"><span>❄️</span> Freezers</h2>
+            <div class="products-grid">
+                <div class="product-card" data-name="freezer enerlife 3.5 pies">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="freezer35">
+                            <img src="imagenes/frez3.5.jpg" class="gallery-img active" alt="freezer enerlife 3.5 pies">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('freezer35', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('freezer35', 1)">›</button>
+                        <div class="gallery-dots" data-dots="freezer35"><span class="gallery-dot active"></span></div>
+                        <span class="product-badge">NEGRO</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Freezer Enerlife 3.5 pies</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : ENERLIFE</li>
+                            <li>3.5 pies</li>
+                            <li>Garantía 2 meses</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                    <div class="product-price">220 USD </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Freezer Enerlife 3.5 pies', 220)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="freezer enerlife 9 pies">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="freezer9">
+                        <img src="imagenes/frez9.jpg" class="gallery-img active" alt="freezer enerlife 9 pies">   
+                    </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('freezer9', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('freezer9', 1)">›</button>
+                        <div class="gallery-dots" data-dots="freezer9"><span class="gallery-dot active"></span></div>
+                        <span class="product-badge">NEGRO</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Freezer Enerlife 9 pies</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : ENERLIFE</li>
+                            <li>9 pies</li>
+                            <li>Garantía 2 meses</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                    <div class="product-price">360 USD </div>
+                    <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Freezer Enerlife 9 pies', 360)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOMBAS -->
+        <section class="category-section" data-category="hogar">
+            <h2 class="section-title"><span>💧</span> Bombas de Agua SACO</h2>
+            <div class="products-grid">
+                <div class="product-card" data-name="bomba agua normal">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="bomba">
+                            <img src="imagenes/turbina42.jpg" class="gallery-img active" alt="bomba agua normal">
+                            </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('bomba', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('bomba', 1)">›</button>
+                        <div class="gallery-dots" data-dots="bomba"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Bomba de Agua Normal</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Saco</li>
+                            <li>Tecnología Italiana</li>
+                            <li>1/2 HP</li>
+                            <li>42L/min</li>
+                            <li>45m altura máxima</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">42 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Bomba de Agua Normal SACO', 42)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="bomba agua autocebante">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="bombaauto">
+                            <img src="imagenes/turbina60.jpg" class="gallery-img active" alt="bomba agua autocebante">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('bombaauto', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('bombaauto', 1)">›</button>
+                        <div class="gallery-dots" data-dots="bombaauto"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Bomba de Agua Autocebante</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Saco</li>
+                            <li>1/2 HP</li>
+                            <li>40L/min</li>
+                            <li>30m altura máxima</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                    <div class="product-price">60 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Bomba de Agua Autocebante SACO', 60)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAÑO -->
+        <section class="category-section" data-category="hogar">
+            <h2 class="section-title"><span>🚽</span> Baño</h2>
+            <div class="products-grid">
+                <div class="product-card" data-name="juego de baño tlv">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="bano">
+                            <img src="imagenes/juegob.jpg" class="gallery-img active" alt="juego de baño tlv">
+                            <img src="imagenes/juegob1.jpg" class="gallery-img active" alt="juego de baño tlv">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('bano', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('bano', 1)">›</button>
+                        <div class="gallery-dots" data-dots="bano"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Juego de Baño TLV con todos los herrajes</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : TLV</li>
+                            <li>Italiano con sistema ahorrador de agua</li>
+                            <li>+ Todos los herrajes </li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                    <div class="product-price">185 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Juego de Baño TLV', 185)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COCINA -->
+        <section class="category-section" data-category="cocina">
+            <h2 class="section-title"><span>🍳</span> Cocina</h2>
+
+            <h3 style="margin: 1.5rem 0 1rem; color: #666; font-size: 1.1rem;">🌾 Ollas Arroceras</h3>
+            <div class="products-grid">
+                <div class="product-card" data-name="olla arrocera 1.5l">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="arrocera15">
+                            <img src="imagenes/arroz.jpg" class="gallery-img active" alt="arrocera15">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('arrocera15', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('arrocera15', 1)">›</button>
+                        <div class="gallery-dots" data-dots="arrocera15"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Olla Arrocera 1.5 L</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Estelectric</li>
+                            <li>1.5L</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">36 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Olla Arrocera 1.5L', 36)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="olla arrocera 1.8l">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="arrocera18">
+                            <img src="imagenes/arrozeko.jpg" class="gallery-img active" alt="arrocera18">
+                            <img src="imagenes/arroze.jpg" class="gallery-img active" alt="arrocera18">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('arrocera18', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('arrocera18', 1)">›</button>
+                        <div class="gallery-dots" data-dots="arrocera18"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Olla Arrocera 1.8 L</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Estelectric/EKO</li>
+                            <li>1.8L</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">38 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Olla Arrocera 1.8L', 38)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin: 1.5rem 0 1rem; color: #666; font-size: 1.1rem;">🫘 Ollas Reinas</h3>
+            <div class="products-grid">
+                <div class="product-card" data-name="olla reina analogica eon 4l">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="reinaeon4">
+                            <img src="imagenes/reina4.jpg" class="gallery-img active" alt="reinaeon4">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('reinaeon4', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('reinaeon4', 1)">›</button>
+                        <div class="gallery-dots" data-dots="reinaeon4"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Olla Reina Analógica EON 4 L</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : EON</li>
+                            <li>4L</li>
+                            <li>90 min</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">55 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Olla Reina Analógica EON 4L', 55)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="olla reina analogica eon 6l">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="reinaeon6">
+                            <img src="imagenes/reina61.jpg" class="gallery-img active" alt="reinaeon6">
+                            </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('reinaeon6', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('reinaeon6', 1)">›</button>
+                        <div class="gallery-dots" data-dots="reinaeon6"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Olla Reina Analógica EON 6 L</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : EON</li>
+                            <li>6L</li>
+                            <li>90 min</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">65 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Olla Reina Analógica EON 6L', 65)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="olla reina bryderk 6l">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="reinabry">
+                            <img src="imagenes/reinab1.jpg" class="gallery-img active" alt="reinabry">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('reinabry', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('reinabry', 1)">›</button>
+                        <div class="gallery-dots" data-dots="reinabry"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Olla Reina BRYDERK 6 L</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Bryderk</li>
+                            <li>6L</li>
+                            <li>90 min</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">55 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Olla Reina BRYDERK 6L', 55)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin: 1.5rem 0 1rem; color: #666; font-size: 1.1rem;">☕ Cafeteras</h3>
+            <div class="products-grid">
+                <div class="product-card" data-name="cafetera rudenkof 6 tazas">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="cafe6">
+                            <img src="imagenes/cafe.jpg" class="gallery-img active" alt="cafe6">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('cafe6', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('cafe6', 1)">›</button>
+                        <div class="gallery-dots" data-dots="cafe6"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Cafetera Eléctrica Rudenkof 6 Tazas</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Rudenkof</li>
+                            <li>6 tazas</li>
+                            <li>Consumo 480 W</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">35 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Cafetera Rudenkof 6 Tazas', 35)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="cafetera eon 3 tazas">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="cafe3">
+                            <img src="imagenes/cafe3.jpg" class="gallery-img active" alt="cafe3">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('cafe3', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('cafe3', 1)">›</button>
+                        <div class="gallery-dots" data-dots="cafe3"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Cafetera Eléctrica EON 3 Tazas</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : EON</li>
+                            <li>3 tazas</li>
+                            <li>Consumo 580 W</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">40 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Cafetera EON 3 Tazas', 40)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin: 1.5rem 0 1rem; color: #666; font-size: 1.1rem;">🍗 Freidoras y Batidoras</h3>
+            <div class="products-grid">
+                <div class="product-card" data-name="freidora de aire sankey">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="freidora">
+                            <img src="imagenes/freid.jpg" class="gallery-img active" alt="freidora">
+                            <img src="imagenes/freid1.jpg" class="gallery-img active" alt="freidora">
+                            <img src="imagenes/freid2.jpg" class="gallery-img active" alt="freidora">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('freidora', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('freidora', 1)">›</button>
+                        <div class="gallery-dots" data-dots="freidora"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Freidora de Aire Sankey (Vaso de Cristal)</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : SANKEY</li>
+                            <li>Capacidad: 4.2L</li>
+                            <li>Vaso de cristal</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                    <div class="product-price">85 USD</div>
+                    <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Freidora de Aire Sankey', 85)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="batidora royal">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="batroyal">
+                            <img src="imagenes/bat2.jpg" class="gallery-img active" alt="batroyal">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('batroyal', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('batroyal', 1)">›</button>
+                        <div class="gallery-dots" data-dots="batroyal"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Batidora Royal (Vaso de Cristal)</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Royal </li>
+                            <li>Vaso de cristal</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">50 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Batidora Royal', 50)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="batidora eko">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="bateko">
+                            <img src="imagenes/bate3.jpg" class="gallery-img active" alt="bateko">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('bateko', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('bateko', 1)">›</button>
+                        <div class="gallery-dots" data-dots="bateko"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Batidora EKO (Vaso de Cristal)</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : EKO </li>
+                            <li>Vaso de cristal</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">45 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Batidora EKO', 45)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="batidora estelectric">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="batest">
+                            <img src="imagenes/batest.jpg" class="gallery-img active" alt="batest">   
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('batest', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('batest', 1)">›</button>
+                        <div class="gallery-dots" data-dots="batest"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Batidora Estelectric (Vaso de Cristal)</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Estelectric </li>
+                            <li>Vaso de cristal</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">38 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Batidora Estelectric', 38)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin: 1.5rem 0 1rem; color: #666; font-size: 1.1rem;">🫕 Fogones y Calderos</h3>
+            <div class="products-grid">
+                <div class="product-card" data-name="fogon induccion eko 1500w">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="fogoneko">
+                            <img src="imagenes/fogon.jpg" class="gallery-img active" alt="fogoneko">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('fogoneko', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('fogoneko', 1)">›</button>
+                        <div class="gallery-dots" data-dots="fogoneko"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Fogón de Inducción EKO 1500W</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : EKO </li>
+                            <li>Placa de cristal pulido</li>
+                            <li>Control de temperatura regulable</li>
+                            <li>270 x 340 mm </li>
+                            <li>Potencia : 1500W </li>
+                            <li>Voltaje : 110V - 60 Hz </li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                      
+                        <div class="product-price">45 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Fogón Inducción EKO 1500W', 45)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="fogon infrarrojo eko 1500w">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="fogonekoinf">
+                            <img src="imagenes/rojo.jpg" class="gallery-img active" alt="fogonekoinf">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('fogonekoinf', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('fogonekoinf', 1)">›</button>
+                        <div class="gallery-dots" data-dots="fogonekoinf"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Fogón Infrarrojo EKO 1500W</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : EKO </li>
+                            <li>Placa de cristal pulido</li>
+                            <li>290 x 370 x 54 mm </li>
+                            <li>Potencia : 1500W </li>
+                            <li>Voltaje : 110V - 60 Hz </li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">45 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Fogón Infrarrojo EKO 1500W', 45)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="fogon infrarrojo aaf">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="fogonaaf">
+                            <img src="imagenes/acf.jpg" class="gallery-img active" alt="fogonaaf">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('fogonaaf', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('fogonaaf', 1)">›</button>
+                        <div class="gallery-dots" data-dots="fogonaaf"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Fogón Infrarrojo MAF</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : MAF </li>
+                            <li>Potencia regulable hasta 2000W </li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">40 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Fogón Infrarrojo AAF', 40)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="juego calderos induccion">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="calderos">
+                            <img src="imagenes/clad.jpg" class="gallery-img active" alt="calderos">
+                            <img src="imagenes/clad1.jpg" class="gallery-img active" alt="calderos">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('calderos', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('calderos', 1)">›</button>
+                        <div class="gallery-dots" data-dots="calderos"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Juego de Calderos de Inducción</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : EON </li>
+                            <li>De Aluminio</li>
+                            <li>5 piezas</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">48 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Juego de Calderos de Inducción', 48)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin: 1.5rem 0 1rem; color: #666; font-size: 1.1rem;">🫘 Ollas de Presión de Inducción</h3>
+            <div class="products-grid">
+                <div class="product-card" data-name="olla presion induccion 5l">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="presion5">
+                            <img src="imagenes/presi1.jpg" class="gallery-img active" alt="presion5">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('presion5', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('presion5', 1)">›</button>
+                        <div class="gallery-dots" data-dots="presion5"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Olla de Presión de Inducción 5 L</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Ruden </li>
+                            <li>Capacidad : 5L</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">35 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Olla de Presión 5L', 35)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-name="olla presion induccion 7l">
+                    <div class="product-image">
+                        <div class="gallery" data-gallery="presion7">
+                            <img src="imagenes/presi2.jpg" class="gallery-img active" alt="presion7">
+                        </div>
+                        <button class="gallery-nav prev" onclick="changePhoto('presion7', -1)">‹</button>
+                        <button class="gallery-nav next" onclick="changePhoto('presion7', 1)">›</button>
+                        <div class="gallery-dots" data-dots="presion7"><span class="gallery-dot active"></span></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Olla de Presión de Inducción 7 L</h3>
+                        <div class="product-description">
+                            <ul>
+                            <li>Marca : Ruden </li>
+                            <li>Capacidad : 7L</li>
+                            <li>Garantía 1 mes</li>
+                            <li>Entrega gratis</li>
+                        </ul>
+                    </div>
+                        <div class="product-price">36 USD</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('Olla de Presión 7L', 36)">
+                                <i class="fas fa-cart-plus"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <h3>No se encontraron productos</h3>
+            <p>Intenta con otra búsqueda</p>
+        </div>
+
+    
+    <!-- CARRITO SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2><i class="fas fa-shopping-cart"></i> Tu Carrito</h2>
+            <button class="cart-close" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <i class="fas fa-shopping-basket"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="cart-total-price" id="cartTotal">0 USD</span>
+            </div>
+            <div class="cart-actions">
+                <button class="btn-whatsapp-cart" onclick="sendCartToWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Enviar pedido por WhatsApp
+                </button>
+                <button class="btn-clear" onclick="clearCart()">
+                    <i class="fas fa-trash-alt"></i> Vaciar carrito
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Producto agregado</span>
+    </div>
+</main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TecnoPino</h3>
+                <p>Tu tienda de confianza en tecnología y electrodomésticos. Calidad garantizada al mejor precio.</p>
+                <div class="social-links">
+                    <a href="https://wa.me/5352621230"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Categorías</h3>
+                <p><a href="#">⚡ Energía</a></p>
+                <p><a href="#">🛵 Movilidad</a></p>
+                <p><a href="#">❄️ Freezers</a></p>
+                <p><a href="#">♎ Ventiladores</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fab fa-whatsapp"></i> +53 52621230</p>
+                <p><i class="fas fa-map-marker-alt"></i> Visítanos en nuestra tienda</p>
+                <p><i class="fas fa-clock"></i> Horario: Lunes a Domingo las 24h</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 TecnoPino. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ===== CONFIGURACIÓN =====
+        const WHATSAPP_NUMBER = "5352621230";
+
+        // ===== GALERÍA DE FOTOS =====
+        const galleries = {};
+
+        function initGalleries() {
+            document.querySelectorAll('.gallery').forEach(gallery => {
+                const id = gallery.getAttribute('data-gallery');
+                const items = gallery.querySelectorAll('.gallery-img, .gallery-placeholder');
+                const dotsContainer = document.querySelector(`.gallery-dots[data-dots="${id}"]`);
+
+                galleries[id] = {
+                    current: 0,
+                    total: items.length,
+                    items: items,
+                    dots: dotsContainer ? dotsContainer.querySelectorAll('.gallery-dot') : []
+                };
+            });
+        }
+
+        function changePhoto(galleryId, direction) {
+            const g = galleries[galleryId];
+            if (!g || g.total <= 1) return;
+
+            g.items[g.current].classList.remove('active');
+            if (g.dots[g.current]) g.dots[g.current].classList.remove('active');
+
+            g.current = (g.current + direction + g.total) % g.total;
+
+            g.items[g.current].classList.add('active');
+            if (g.dots[g.current]) g.dots[g.current].classList.add('active');
+        }
+
+        function goToPhoto(galleryId, index) {
+            const g = galleries[galleryId];
+            if (!g || index < 0 || index >= g.total) return;
+
+            g.items[g.current].classList.remove('active');
+            if (g.dots[g.current]) g.dots[g.current].classList.remove('active');
+
+            g.current = index;
+
+            g.items[g.current].classList.add('active');
+            if (g.dots[g.current]) g.dots[g.current].classList.add('active');
+        }
+
+        // ===== CARRITO =====
+        let cart = JSON.parse(localStorage.getItem('tecnopino_cart')) || [];
+
+        function saveCart() {
+            localStorage.setItem('tecnopino_cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function addToCart(name, price) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            saveCart();
+            showToast('"' + name + '" agregado al carrito');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveCart();
+        }
+
+        function updateQty(index, change) {
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            saveCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            saveCart();
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').textContent = count;
+
+            const itemsContainer = document.getElementById('cartItems');
+            const footer = document.getElementById('cartFooter');
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `
+                    <div class="cart-empty">
+                        <i class="fas fa-shopping-basket"></i>
+                        <p>Tu carrito está vacío</p>
+                    </div>
+                `;
+                footer.style.display = 'none';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+            cart.forEach((item, i) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price} USD c/u</div>
+                            <div class="cart-item-qty">
+                                <button class="qty-btn" onclick="updateQty(${i}, -1)">−</button>
+                                <span>${item.qty}</span>
+                                <button class="qty-btn" onclick="updateQty(${i}, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" onclick="removeFromCart(${i})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            itemsContainer.innerHTML = html;
+            document.getElementById('cartTotal').textContent = total + ' USD';
+            footer.style.display = 'block';
+        }
+
+        function toggleCart() {
+            document.getElementById('cartOverlay').classList.toggle('active');
+            document.getElementById('cartSidebar').classList.toggle('active');
+        }
+
+        function sendCartToWhatsApp() {
+            if (cart.length === 0) return;
+
+            let message = "Hola TecnoPino, quiero hacer el siguiente pedido:\n\n";
+            let total = 0;
+            cart.forEach(item => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                message += `• ${item.name}\n`;
+                message += `  Cantidad: ${item.qty} x ${item.price} USD = ${subtotal} USD\n\n`;
+            });
+            message += `*Total: ${total} USD*\n\n`;
+            message += "Por favor confirmarme disponibilidad y forma de pago. ¡Gracias!";
+
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ===== BÚSQUEDA =====
+        const searchInput = document.getElementById('searchInput');
+        const productCards = document.querySelectorAll('.product-card');
+        const sections = document.querySelectorAll('.category-section');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            let visibleCount = 0;
+
+            productCards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                if (name.includes(term)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            sections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.product-card[style*="block"]');
+                if (term === '') {
+                    section.style.display = 'block';
+                } else if (visibleCards.length === 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+
+            noResults.classList.toggle('show', visibleCount === 0 && term !== '');
+        });
+
+        // ===== FILTRO DE CATEGORÍAS =====
+        function filterCategory(category) {
+            document.querySelectorAll('.categories-list button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            sections.forEach(section => {
+                if (category === 'all') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = section.getAttribute('data-category') === category ? 'block' : 'none';
+                }
+            });
+
+            noResults.classList.remove('show');
+            searchInput.value = '';
+            productCards.forEach(card => card.style.display = 'block');
+        }
+
+        // Inicializar al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            initGalleries();
+            updateCartUI();
+        });
+    </script>
+</body>
+</html>
