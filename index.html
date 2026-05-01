@@ -2159,6 +2159,17 @@
             initGalleries();
             updateCartUI();
         });
+      // Notificar entrada (solo una vez por pestaña para no spamear)
+(function() {
+    if (sessionStorage.getItem('ntfy_sent')) return;
+    
+    fetch('https://ntfy.sh/tecnopino-ventas-2026', {
+        method: 'POST',
+        body: '👤 Alguien entró a TecnoPino - ' + new Date().toLocaleString('es-CU')
+    }).catch(() => {});
+    
+    sessionStorage.setItem('ntfy_sent', '1');
+})();
     </script>
 </body>
 </html>
